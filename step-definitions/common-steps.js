@@ -4,6 +4,11 @@ module.exports = function () {
         return helpers.loadPage(page.pageObjects.siteUrls[objectKey]);
     });
 
+    this.Given("I am on the SignUpPage", async function () {
+        await driver.sleep(100);
+        return;
+    });
+
     this.When(/^I click on "([^"]*)"$/, function (objectKey) {
         return page.pageObjects.clickElement(objectKey);
     });
@@ -19,6 +24,24 @@ module.exports = function () {
         };
         await driver.sleep(3000);
         return;
+    });
+
+
+    this.When(/^I enter "([^"]*)""([^"]*)""([^"]*)""([^"]*)""([^"]*)""([^"]*)"$/, async function (objectKey1,objectKey2,objectKey3,objectKey4,objectKey5,objectKey6) {
+        if (objectKey1 == 'SSFname'){
+            return page.pageObjects.inputElement1(objectKey1,objectKey2,objectKey3,objectKey4,objectKey5,objectKey6);
+        }
+        await driver.sleep(3000);
+        return page.pageObjects.inputElement2(objectKey1,objectKey2,objectKey3,objectKey4,objectKey5,objectKey6);
+    });
+
+    this.Then(/^I should be able to see "([^"]*)"$/, async function (objectKey) {
+        if(objectKey == 'SSErrorMessage5'){
+            await driver.sleep(2000);
+            return page.pageObjects.elementExists1();
+        }
+        await driver.sleep(5000);
+        return page.pageObjects.elementExists(objectKey);
     });
 
 
